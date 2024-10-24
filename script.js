@@ -1,76 +1,91 @@
-
 const calcButtons = document.querySelectorAll('button')
 const screen = document.querySelector('#screen')
-
-let clickCount = 0 
-let operators = ['+', '-', '/', '*', '%']
 let num1 = ""
 let num2 = ""
-let operator
+let operatorBeenChosen = 0 
+let operators = ['+', '-', '/', '*', '%','AC','=']
+let currentOperator
 
 
+//Event listener that take in getValues as a callback function
+
+    calcButtons.forEach(button => {
+        button.addEventListener('click', calculatorLogic)
+    })
+
+//getValues is the main function that distinguishes between num1 and num2 
 
 
-/*
-calcButtons.forEach(button => {
-    button.addEventListener('click', function () {
-            if (clickCount < 10) {
-            let newValue = document.createElement('div')
-            newValue.style.fontSize = '60px'
-            newValue.style.fontFamily = 'monospace'
-            newValue.innerText = this.value
-            screen.append(newValue)
-            clickCount++
-                console.log(clickCount)
-                
+function calculatorLogic() {
+    
+    getValues(this.value)
+    displayValues(this.value)
+    operate(num1,num2,this.value)
+
+
+}
+
+
+function getValues(buttonPressed) {
+
+    const currentValue = buttonPressed
+
+    if (operators.includes(currentValue) && currentValue!= '=') {
+        currentOperator = currentValue
+        operatorBeenChosen += 1
+        screen.replaceChildren()
+        console.log(currentOperator)
+    }
+
+    if (operators.includes(currentValue) == false) {
+        if (operatorBeenChosen == 0) {
+                num1 += currentValue
+                console.log(`num1 is now ${num1}`)
+    
+        }
+
+        else if (operatorBeenChosen == 1) {
+                num2 += currentValue
+                console.log(`num2 is now ${num2}`)
             
         }
-    })
-
-})
-
-*/
+    }
+}
 
 
-calcButtons.forEach(button => {
-    button.addEventListener('click', function () {
-        const value = button.value
+function displayValues(values) {
+    if (operators.includes(values) == false) {
+        let newValue = document.createElement('div')
+        newValue.innerText = values
+        newValue.style.fontSize = '60px'
+        newValue.style.fontFamily = 'monospace'
+        screen.append(newValue)
+    }
+}
 
-        if (operators.includes(value)) {
-            operator = value
-            clickCount += 1
-            //console.log(`after operator is pressed cc = ${clickCount}`)
-            screen.replaceChildren()        
+function operate(num1, num2, buttonPressed) {
+    if (buttonPressed == '=') {
+        screen.replaceChildren()
 
-        }
+        let result;
+        switch (currentOperator) {
+        case '+':
+        result = Number(num1) + Number(num2);
+        break;
+        case '-':
+        result = Number(num1) - Number(num2);
+        break;
+        case '*':
+        result = Number(num1) * Number(num2);
+        break;
+        case '/':
+        result = Math.round((Number(num1) / Number(num2)) * 10000000) / 100000000
+                
+        break;
+}
+
+        displayValues(result)
+
+    }
     
-        else if (clickCount == 0) {
-            num1 += value
-            console.log(`current value= ${value}`)
-            console.log(`before operator is pressed cc = ${clickCount}`)
-            console.log(`first num = ${num1}`)
-            let newValue = document.createElement('div')
-            newValue.style.fontSize = '60px'
-            newValue.style.fontFamily = 'monospace'
-            newValue.innerText = this.value
-            screen.append(newValue)
-
-        } 
-        else if (clickCount == 1) {
-            num2 += value
-            console.log(`first num = ${num1}`)
-            console.log(`second num = ${num2}`)
-            console.log(`after operator is pressed cc = ${clickCount}`)
-            let newValue = document.createElement('div')
-            newValue.style.fontSize = '60px'
-            newValue.style.fontFamily = 'monospace'
-            newValue.innerText = this.value
-            screen.append(newValue)
-        
-        }
-        
-    })
-})
-
-
-
+}
