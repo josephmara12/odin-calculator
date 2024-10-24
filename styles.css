@@ -1,0 +1,50 @@
+body{
+display: flex;
+height: 100vh;
+justify-content: center;
+align-items: center;
+
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    border: 10px solid rgba(47, 47, 47, 1);
+    border-radius: 4px;
+    width: 400px;
+    height: 480px;
+    background-color: black;
+}
+
+#screen{
+width: 380px;
+height:80px;
+background-color:#b2b9b7;
+padding: 5px;
+margin: 5px;
+text-shadow: 1.3px 1.3px #383838;
+display: flex;
+flex-wrap: nowrap;
+justify-content:flex-end ;
+}
+
+#buttons {
+display: flex;
+flex-wrap: wrap;
+margin-left: 2px;
+padding: 1px;
+
+}
+
+.cbutton {
+    width: 95px;
+    height: 70px;
+    margin: 2px;
+    font-size: 24px;
+    font-weight: 200;
+    font-family: monospace;
+}
+
+#zero{
+    flex-grow: 1;
+}
