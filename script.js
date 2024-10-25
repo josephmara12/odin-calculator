@@ -3,8 +3,10 @@ const screen = document.querySelector('#screen')
 let num1 = ""
 let num2 = ""
 let operatorBeenChosen = 0 
-let operators = ['+', '-', '/', '*', '%','AC','=']
+let operators = ['+', '-', '/', '*', '%', 'AC', '=']
+let numbers = ['1','2','3','4',5,'6','7','8','9','0']
 let currentOperator
+
 
 
 //Event listener that take in getValues as a callback function
@@ -20,7 +22,9 @@ function calculatorLogic() {
     
     getValues(this.value)
     displayValues(this.value)
-    operate(num1,num2,this.value)
+    operate(this.value)
+    clearValues(this.value)
+   
 
 
 }
@@ -52,7 +56,6 @@ function getValues(buttonPressed) {
     }
 }
 
-
 function displayValues(values) {
     if (operators.includes(values) == false) {
         let newValue = document.createElement('div')
@@ -63,29 +66,46 @@ function displayValues(values) {
     }
 }
 
-function operate(num1, num2, buttonPressed) {
+function operate(buttonPressed) {
     if (buttonPressed == '=') {
         screen.replaceChildren()
 
         let result;
         switch (currentOperator) {
         case '+':
-        result = Number(num1) + Number(num2);
+                result = Number(num1) + Number(num2);
+              
         break;
         case '-':
-        result = Number(num1) - Number(num2);
+                result = Number(num1) - Number(num2);
+            
         break;
         case '*':
-        result = Number(num1) * Number(num2);
+                result = Number(num1) * Number(num2);
+                
         break;
         case '/':
-        result = Math.round((Number(num1) / Number(num2)) * 10000000) / 100000000
+                result = Math.round((Number(num1) / Number(num2)) * 10000000) / 100000000
+                
                 
         break;
 }
-
         displayValues(result)
+        
+    }
+
 
     }
-    
+
+
+function clearValues(clearButton) {
+    if (clearButton == 'AC') {
+        num1 = ""
+        num2 = ""
+        result =
+        operatorBeenChosen = 0
+        screen.replaceChildren()
+        
+    }
 }
+
