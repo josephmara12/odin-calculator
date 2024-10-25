@@ -48,3 +48,9 @@ padding: 1px;
 #zero{
     flex-grow: 1;
 }
+
+
+
+.cbutton:hover {
+  background-color: rgb(62, 155, 217);
+}
