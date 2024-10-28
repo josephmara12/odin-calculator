@@ -7,6 +7,8 @@ let operators = ['+', '-', '/', '*', '%', 'AC', '=']
 let currentOperator
 let calculationDone = false;
 let result;
+let newResult;
+let calcRound = 0
 
 
 
@@ -38,22 +40,23 @@ function getValues(buttonPressed) {
         if (operators.includes(currentValue) && currentValue != '=') {
             currentOperator = currentValue
             operatorBeenChosen = 1
-            screen.replaceChildren()
+            //screen.replaceChildren()
             
         }
 
-        if (operators.includes(currentValue) == false) {
-            if (operatorBeenChosen == 0) {
+    if (operators.includes(currentValue) == false) {
+        screen.replaceChildren()
+        if (operatorBeenChosen == 0) {
                 num1 += currentValue
                 console.log(`num1 is now ${num1}`)
-    
+
             }
 
             else if (operatorBeenChosen == 1) {
                 num2 += currentValue
                 console.log(`num2 is now ${num2}`)
             
-            }
+        }
         }
 
 }
@@ -70,33 +73,55 @@ function displayValues(values) {
 
 function operate(buttonPressed) {
     if (buttonPressed == '=') {
+
+        console.log(calcRound);
         screen.replaceChildren()
+        
         switch (currentOperator) {
         case '+':
-                result = Number(num1) + Number(num2);
-                
+                if (calcRound == 0) {
+                    result = Number(num1) + Number(num2);
+                    console.log(` this is first result ${result}`);
+                } else if (calcRound == 1) {
+                    result = result + Number(num2)
+                    console.log(` this is newresult ${result}`);
+
+                }
                 
         break;
         case '-':
-                result = Number(num1) - Number(num2);
-                
+                if (calcRound == 0) {
+                    result = Number(num1) - Number(num2);
+                    console.log(` this is first result ${result}`);
+                } else if (calcRound == 1) {
+                    result = result - Number(num2)
+                    console.log(` this is newresult ${result}`);
+
+                }
             
         break;
         case '*':
-                result = Number(num1) * Number(num2);
-                
-                
+                if (calcRound == 0) {
+                    result = Number(num1) * Number(num2);
+                    console.log(` this is first result ${result}`);
+                } else if (calcRound == 1) {
+                    result = result * Number(num2)
+                    console.log(` this is newresult ${result}`);
+
+                }
         break;
         case '/':
-                result = Math.round((Number(num1) / Number(num2)) * 10000000) / 100000000
                 
+                if (calcRound == 0) {
+                    result = Math.round((Number(num1) / Number(num2)) * 10000000) / 100000000
+                    console.log(` this is first result ${result}`);
+                } else if (calcRound == 1) {
+                    result = result / Number(num2)
+                    console.log(` this is newresult ${result}`);
+
+                }
         break;
         }
-        
-
-
-
-
 
         displayValues(result)
         num1 = ""
@@ -114,6 +139,7 @@ function clearValues(clearButton) {
         result =
         operatorBeenChosen = 0
         screen.replaceChildren()
+        calcRound = 0
         
     }
 }
